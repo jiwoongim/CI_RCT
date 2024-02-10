@@ -14,9 +14,9 @@ ITEM = 0
 from ci.rct_example.online_classroom import OnlineClassRoom
 
 
-def get_dataset(name: str) -> DF:
+def get_dataset(path: str) -> DF:
     #'online_classroom' in name:
-    return OnlineClassRoom(pd.read_csv(f"./data/{name}.csv"))
+    return OnlineClassRoom(pd.read_csv(f"{path}.csv"))
 
 
 MEAN = 0

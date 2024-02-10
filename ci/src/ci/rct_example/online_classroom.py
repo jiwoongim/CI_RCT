@@ -23,7 +23,7 @@ class OnlineClassRoom:
         blended = np.sum(self.data_df["format_blended"] == 1)
 
         print(f"Number of online class: {onlineclass}")
-        print(f"Number of inclass: {inclass}")
+        print(f"Number of in-person class: {inclass}")
         print(f"Number of blended: {blended}")
 
     def get_potential_outcomes_by_treatment(self):
