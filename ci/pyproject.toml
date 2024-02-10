@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ci"
+version = "0.1.0"
+description = "Causal Inference"
+authors = ["Daniel Jiwoong Im"]
+packages = [
+    { include = "ci", from = "./src" }
+]
+
+[tool.poetry.dependencies]
+python = "3.10"
+matplotlib = "3.5.0"
+tqdm = "^4.66.1"
+pandas = "^2.1.2"
+
+[tool.poetry.group.dev.dependencies]
+numpy = "^1.26.1"
+black = "^23.7.0"
+isort = "^5.10.1"
