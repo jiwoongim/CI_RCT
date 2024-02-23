@@ -33,7 +33,7 @@ if __name__ == '__main__':
     action0_x0 = np.argwhere((np.asarray(propensity_actions)==0) & (np.asarray(covariates)==0)).flatten()
 
     axs[0].bar([0,1,2,3], [len(action0_x0), len(action0_x1), len(action1_x0), len(action1_x1)], \
-                    label=['Action=0, X=0','Action=0, X=1','Action=1, X=0','Action=1, X=1'], color=['skyblue', 'blue','tomato','red'])
+                    label=['Action=0, X=0','Action=0, X=1','Action=1, X=0','Action=1, X=1'], color=['skyblue', 'blue','tomato','indianred'])
     axs[0].set_title("Samples from P(A=a)")
     axs[0].set_ylabel("Frequency of A=a ")
     axs[0].legend()
@@ -45,11 +45,11 @@ if __name__ == '__main__':
         return density
 
     xs = np.linspace(0, 1, 20)
-    axs[1].set_title("Kernel Estimation of Empircal Samples ~ P(Y|A=a,X)")
-    axs[1].plot(xs,get_density(rct_outcomes_np[action1_x1])(xs), ls='-', label='Action=1,X=1', color='skyblue')
-    axs[1].plot(xs,get_density(rct_outcomes_np[action1_x0])(xs), ls='-', label='Action=0,X=0', color='blue')
-    axs[1].plot(xs,get_density(rct_outcomes_np[action0_x1])(xs), ls='-', label='Action=0,X=1', color='tomato')
-    axs[1].plot(xs,get_density(rct_outcomes_np[action0_x0])(xs), ls='-', label='Action=0,X=0', color='red')
+    axs[1].set_title("Kernel Estimation, Samples ~ P(Y|A=a,X)")
+    axs[1].plot(xs,get_density(rct_outcomes_np[action1_x1])(xs), ls='-', label='Action=1,X=1', color='tomato')
+    axs[1].plot(xs,get_density(rct_outcomes_np[action1_x0])(xs), ls='-', label='Action=0,X=0', color='indianred')
+    axs[1].plot(xs,get_density(rct_outcomes_np[action0_x1])(xs), ls='-', label='Action=0,X=1', color='blue')
+    axs[1].plot(xs,get_density(rct_outcomes_np[action0_x0])(xs), ls='-', label='Action=0,X=0', color='skyblue')
     axs[1].legend()
 
 

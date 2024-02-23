@@ -1,7 +1,7 @@
 """
 ShortCut:
-python script/run_bandits.py --algo_type rct --num_run 2000 --num_action 2
-python script/run_bandits.py --algo_type thompson --num_run 2000 --num_action 2
+python script/run_bandits.py --algo_type rct --num_run 10000 --num_action 2
+python script/run_bandits.py --algo_type thompson --num_run 10000 --num_action 2
 """
 import argparse
 import os

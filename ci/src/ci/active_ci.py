@@ -31,6 +31,7 @@ class ActiveCausalInference:
         return np.asarray(self._dataset)
 
     def get_empirical_prob_actions(self) -> tuple[float, float]:
+        """Empirical Estimate of p(A|X)"""
 
         prob_a_list = []
         dataset_np = np.asarray(self._dataset)
@@ -40,28 +41,30 @@ class ActiveCausalInference:
         return prob_a_list
 
     def get_potential_outcomes_given_action(self, action: int) -> tuple[np.array, np.array]:
+        """Returns individual potential outcomes of individuals P(y|A=a,X=x) 
+            and outcomes of p(y|A=a,X=x)"""
 
         if self._dataset == []:
             return np.asarray([np.nan]), np.asarray([np.nan])
 
-        dataset_np = np.asarray(self._dataset)
+        dataset_np = np.asarray(self._dataset) #(x_i,a_i,y_i,p_i)
         action_indicators = dataset_np[:, DATA_IND.ACTION] == action
         if len(action_indicators) == 0:
             return np.asarray([np.nan]), np.asarray([np.nan])
 
-        outcomes = dataset_np[:, DATA_IND.OUTCOME] * action_indicators
-        potential_outcomes = outcomes/ dataset_np[:, DATA_IND.PROPENSITY]
+        outcomes = dataset_np[:, DATA_IND.OUTCOME] * action_indicators #y_i*I[a_i=action]
+        potential_outcomes = outcomes/ dataset_np[:, DATA_IND.PROPENSITY] #y_i*I[a_i=action] / p_i
         return potential_outcomes, outcomes
 
     def compute_potential_outcome(self, action: int) -> tuple[list[float], float]:
-        """Returns potential outcome and conditional outcome"""
+        """Returns potential outcome and conditional outcome given an action"""
 
         potential_outcomes, outcomes = self.get_potential_outcomes_given_action(action)
         standard_error = get_standard_error(potential_outcomes)
         return [np.nanmean(potential_outcomes), standard_error], np.nanmean(outcomes)
 
     def compute_potential_outcomes(self):
-
+        """Returns potential outcome and conditional outcome for all actions"""
         conditional_outcome_list = []
         potential_outcome_list = []
         for action in range(self.num_action):
