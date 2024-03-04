@@ -19,7 +19,7 @@ class DATA_IND:
 
 class ActiveCausalInference:
     def __init__(self, num_action: int):
-        self._dataset = []
+        self._dataset = [] #(x_i,a_i,y_i,p_i)
         self.num_action = num_action
 
     def append_data(
@@ -48,7 +48,7 @@ class ActiveCausalInference:
             return np.asarray([np.nan]), np.asarray([np.nan])
 
         dataset_np = np.asarray(self._dataset) #(x_i,a_i,y_i,p_i)
-        action_indicators = dataset_np[:, DATA_IND.ACTION] == action
+        action_indicators = dataset_np[:, DATA_IND.ACTION] == action #I(a_i=a)
         if len(action_indicators) == 0:
             return np.asarray([np.nan]), np.asarray([np.nan])
 

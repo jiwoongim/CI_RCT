@@ -56,6 +56,7 @@ def main(args):
         model.append_data(x_i, a_i, y_i, p_i)
         prob_actions = model.get_empirical_prob_actions()
 
+        # Warm up 
         if i < 100:
             continue
         #print(f"Sampled Data: {x_i, a_i, y_i, p_i}, {prob_actions}")

@@ -20,12 +20,12 @@ class ThompsonBandit(BanditArm):
         dataset_np = np.asarray(self._dataset)
 
         ## Resort to rct if have never seen covariate X=x 
-        argind = np.argwhere(covariate == dataset_np[:,DATA_IND.COVARIATE]).flatten()
+        argind = np.argwhere(covariate == dataset_np[:,DATA_IND.COVARIATE]).flatten() #I[x_i=x]
         if len(argind) == 0:
             return self.sample_action()
         dataset_cov_np = dataset_np[argind]
 
-        ## Compute propensity score P(A|X=x)
+        ## Compute propensity score P(A|X=x_i) 
         propensity_scores = []
         for action in range(self.num_action):
 
@@ -34,12 +34,12 @@ class ThompsonBandit(BanditArm):
             ## i.e., there is at least one sample for p(A=a|X=x)
             inds = np.argwhere(
                 dataset_cov_np[:, DATA_IND.ACTION] == action
-            ).flatten()
+            ).flatten() #I[a_i=a]
             if len(inds) == 0:
                 return self.sample_action()
 
             ## Normalize the outcome by the propensity score
-            potential_outcome_list = dataset_cov_np[inds, DATA_IND.OUTCOME] / dataset_cov_np[inds, DATA_IND.PROPENSITY]
+            potential_outcome_list = dataset_cov_np[inds, DATA_IND.OUTCOME] #/ dataset_cov_np[inds, DATA_IND.PROPENSITY]
 
             ## Compute the potentials 
             exp_potential_outcome = np.exp(np.nanmean(potential_outcome_list)/beta)

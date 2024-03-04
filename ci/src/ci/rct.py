@@ -32,7 +32,7 @@ class BanditArm(ActiveCausalInference, BanditArmABC):
         return prob
 
     def sample_outcome(self, x: float, a: float):
-        eps_y = RNG.normal(0, 0.05, size=1).flatten()[ITEM]
+        eps_y = RNG.normal(0, 0.01, size=1).flatten()[ITEM]
         return sigmoid(0.1 * a - 0.5 * x + np.sqrt(1 - 0.1**2 - 0.5**2 + 0.02) * eps_y)
         #return sigmoid(0.5 * a - 0.1 * x + np.sqrt(1 - 0.1**2 - 0.5**2 + 0.02))
 
